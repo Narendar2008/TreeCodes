@@ -66,3 +66,11 @@ public class BinaryTreeUse {
 }
 
 ```
+### Excution Methods
+Files --> Save it as BinaryTreeNode.java
+and  BinaryTreeUse.java
+```
+javac BinaryTreeNode.java
+javac BinaryTreeUse.java
+java BinaryTreeUse
+```
