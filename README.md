@@ -93,3 +93,45 @@ public static int height(BinaryTreeNode<Integer> root) {
 System.out.println("Height of the Tree:"+ height(root));
 
 ```
+
+## **Ttraversal Methods**
+```java
+ public static void preOrder(BinaryTreeNode<Integer> root) {
+        if (root == null) {
+            return;
+        }
+        System.out.print(root.data + " ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+
+    public static void inOrder(BinaryTreeNode<Integer> root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        System.out.print(root.data + " ");
+        inOrder(root.right);
+    }
+
+    public static void postOrder(BinaryTreeNode<Integer> root) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.data + " ");
+    }
+
+System.out.println("Pre-order Traversal:");
+        preOrder(root);
+        System.out.println();
+
+        System.out.println("In-order Traversal:");
+        inOrder(root);
+        System.out.println();
+
+        System.out.println("Post-order Traversal:");
+        postOrder(root);
+        System.out.println();
+```
