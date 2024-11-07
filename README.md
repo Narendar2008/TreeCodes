@@ -68,7 +68,7 @@ public class BinaryTreeUse {
 ```
 
 
-### Excution Methods
+### Execution Methods
 Files --> Save it as BinaryTreeNode.java
 and  BinaryTreeUse.java
 ```
@@ -94,7 +94,7 @@ System.out.println("Height of the Tree:"+ height(root));
 
 ```
 
-## **Ttraversal Methods**
+## **Traversal Methods**
 ```java
  public static void preOrder(BinaryTreeNode<Integer> root) {
         if (root == null) {
