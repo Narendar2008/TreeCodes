@@ -66,6 +66,8 @@ public class BinaryTreeUse {
 }
 
 ```
+
+
 ### Excution Methods
 Files --> Save it as BinaryTreeNode.java
 and  BinaryTreeUse.java
@@ -73,4 +75,21 @@ and  BinaryTreeUse.java
 javac BinaryTreeNode.java
 javac BinaryTreeUse.java
 java BinaryTreeUse
+```
+### **Height of the Tree**
+```java
+public static int height(BinaryTreeNode<Integer> root) {
+        if(root==null){
+            return 0;
+        }
+        int smallLeftOutput = height(root.left);
+        int smallRightoutput = height(root.right);
+        if(smallRightoutput>smallLeftOutput){
+            return smallRightoutput+1;
+        }else{
+            return smallLeftOutput+1;
+        }
+
+System.out.println("Height of the Tree:"+ height(root));
+
 ```
