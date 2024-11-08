@@ -76,3 +76,20 @@ javac BinaryTreeNode.java
 javac BinaryTreeUse.java
 java BinaryTreeUse
 ```
+## **Height of the Tree**
+```java
+ public static int height(BinaryTreeNode<Integer> root){
+        if(root==null){
+            return 0;
+        }
+        int leftoutput=height(root.left);
+        int rightoutput=height(root.right);
+        if(rightoutput>leftoutput){
+            return rightoutput+1;
+
+        }else{
+            return leftoutput+1;
+        }
+    }
+System.out.print("Height oF the tree: "+height(root));
+```
