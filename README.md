@@ -109,18 +109,7 @@ System.out.println("Number of Nodes in Tree: "+numNodes(root));
 ```java
 import java.util.*;
 public class BinarySearchTreeUse {
-    public static int height(BinaryTreeNode<Integer> root) {
-        if(root==null){
-            return 0;
-        }
-        int smallLeftOutput = height(root.left);
-        int smallRightoutput = height(root.right);
-        if(smallRightoutput>smallLeftOutput){
-            return smallRightoutput+1;
-        }else{
-            return smallLeftOutput+1;
-        }
-    }
+   
     public static BinaryTreeNode<Integer> takeTreeInputBetter(boolean isRoot, int parentData, boolean isLeft) {
         if (isRoot) {
             System.out.println("Enter root data");
@@ -229,52 +218,8 @@ public class BinarySearchTreeUse {
         IsBSTReturn ans = isBST2(root);
         System.out.println("Min: " + ans.min + ", Max: " + ans.max + ", isBST: " + ans.isBST);
 
-        System.out.println("Height of the tree : "+height(root));
+      
     }
 }
 ```
 
-# **Graphs**
-
-```java
-import java.util.*;
-class AdjacencyMatric{
-	public static void main(String args[]){
-      Scanner sc=new Scanner(System.in);
-      System.out.println("Enter the number of vertices: ");
-      int vertices=sc.nextInt();
-      int maxEdges=vertices*(vertices-1);
-      System.out.println("Maximum possible edges for " +vertices +" vertices: "+maxEdges);
-      System.out.println("Enter the number of edges: ");
-      int edges=sc.nextInt();
-      if(edges>maxEdges){
-      	System.out.println("Too many Edges! The maximum allowed is: "+maxEdges);
-      	return;
-      }
-      int adjMatric[][]=new int[vertices][vertices];
-      for(int i=0;i<vertices;i++){
-      	Arrays.fill(adjMatric[i],-1);
-      }
-      for(int i=0;i<edges;i++){
-      	System.out.print("Enter the "+(i+1)+" edges (format: vertext1 vertext2 weight) : ");
-      	int vertext1=sc.nextInt();
-      	int vertext2=sc.nextInt();
-      	int weight=sc.nextInt();
-      	if(vertext1>=vertices || vertext2>=vertices || vertext1==vertext2){
-      		System.out.println("invalid edges! No Self-loops or invalid vertices");
-      		i--;
-      		continue;
-      	}
-      	adjMatric[vertext1][vertext2]=weight;
-      	
-      }
-      System.out.println("AdjacencyMatricx is ");
-      for(int i=0;i<vertices;i++){
-      	for(int j=0;j<vertices;j++){
-      		System.out.print((adjMatric[i][j]==-1 ?0:adjMatric[i][j]) + " ");
-      	}
-      	System.out.println();
-      }
-	}
-}
-```
