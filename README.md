@@ -242,3 +242,15 @@ public static int height(BinaryTreeNode<Integer> root) {
 
 ```
 
+# **Largest Node in a BST**
+```java
+public static int largest(BinaryTreeNode<Integer> root) {
+        if (root == null) {
+            return Integer.MIN_VALUE;
+        }
+        int leftLargest = largest(root.left);
+        int rightLargest = largest(root.right);
+        return Math.max(root.data, Math.max(leftLargest, rightLargest));
+    }
+```
+
