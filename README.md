@@ -192,3 +192,278 @@ VALUES (21, 500,'2022-01-11',1,11),
 	 (26, 800,'2022-08-18',6,15),
 	 (27, 500,'2022-11-26',2,12);
 ```
+# **NOTES**
+### **Grouping in SQL: Overview**
+
+Grouping in SQL involves organizing rows into groups based on common values in a column. The **`GROUP BY`** statement is central to this process, often used with **aggregate functions** to generate summary data.
+
+---
+
+### **Key Concepts**
+1. **GROUP BY**:
+   - Groups rows with identical values in specified columns.
+   - Often paired with aggregate functions for summarizing data.
+
+2. **Aggregate Functions**:
+   - Perform calculations on grouped data.
+     | **Function** | **Description**                     |
+     |--------------|-------------------------------------|
+     | `COUNT()`    | Counts the number of rows.         |
+     | `AVG()`      | Calculates the average value.      |
+     | `MAX()`      | Finds the maximum value.           |
+     | `MIN()`      | Finds the minimum value.           |
+     | `SUM()`      | Sums up the values in a column.    |
+
+3. **General Syntax**:
+   ```sql
+   SELECT column_name(s), aggregate_function(column_name)
+   FROM table_name
+   WHERE condition
+   GROUP BY column_name(s);
+   ```
+
+---
+
+### **Examples**
+
+#### **1. Counting Records by Group**
+
+**Task**: Find the number of Ninjas in each city.
+
+**Table**: `Ninjas`
+
+| ID  | Ninja's Name   | City       |
+|------|----------------|------------|
+| 101  | Lokesh Ninja   | Kolkata    |
+| 102  | Kuldeep Ninja  | Bhopal     |
+| 103  | Raju Ninja     | Kolkata    |
+| 104  | Ojasv Ninja    | Shimla     |
+| 105  | Abhi Ninja     | Bhopal     |
+| 106  | Tarun Ninja    | Bhopal     |
+
+**Query**:
+```sql
+SELECT COUNT(ID) AS NinjaCount, City
+FROM Ninjas
+GROUP BY City
+ORDER BY COUNT(ID) DESC;
+```
+
+**Output**:
+| **NinjaCount** | **City** |
+|----------------|----------|
+| 3              | Bhopal   |
+| 2              | Kolkata  |
+| 1              | Shimla   |
+
+---
+
+#### **2. Filtering Groups with `HAVING` Clause**
+
+**Task**: Find cities where the number of Ninjas is exactly 2.
+
+**Query**:
+```sql
+SELECT COUNT(ID) AS NinjaCount, City
+FROM Ninjas
+GROUP BY City
+HAVING COUNT(ID) = 2;
+```
+
+**Output**:
+| **NinjaCount** | **City** |
+|----------------|----------|
+| 2              | Kolkata  |
+
+---
+
+#### **3. Using `COUNT(*)`**
+
+**Task**: Find the total number of records in the table.
+
+**Query**:
+```sql
+SELECT COUNT(*)
+FROM Ninjas;
+```
+
+**Output**:
+| **COUNT(*)** |
+|--------------|
+| 6            |
+
+---
+
+### **Comparison: WHERE vs. HAVING**
+
+| **Aspect**            | **WHERE Clause**                              | **HAVING Clause**                              |
+|------------------------|-----------------------------------------------|-----------------------------------------------|
+| **Purpose**            | Filters rows before grouping.                | Filters groups after grouping.                |
+| **Usage with GROUP BY**| Optional.                                    | Required.                                     |
+| **Position**           | Before GROUP BY.                             | After GROUP BY.                               |
+| **Applicable to**      | Row operations.                              | Group (column) operations.                    |
+| **Statement Type**     | Can be used with SELECT, UPDATE, DELETE.      | Only used with SELECT.                        |
+
+**Example**:
+```sql
+-- Using WHERE
+SELECT City
+FROM Ninjas
+WHERE City = 'Bhopal';
+
+-- Using HAVING
+SELECT City, COUNT(*)
+FROM Ninjas
+GROUP BY City
+HAVING City = 'Bhopal';
+```
+
+---
+
+### **Syntax with Clause Order**
+
+```sql
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+HAVING condition
+ORDER BY column_name;
+```
+---
+
+# SQL JOINS Explained
+
+## What are JOINS in SQL?
+
+JOINS are used in SQL to combine rows from two or more tables based on a related column between them. They are a powerful tool to query relational databases effectively.
+
+---
+
+## Types of JOINS
+
+### 1. **INNER JOIN**
+- **Definition**: Returns rows with matching values in both tables.
+- **Syntax**:
+  ```sql
+  SELECT *
+  FROM TableA
+  INNER JOIN TableB
+  ON TableA.column = TableB.column;
+  ```
+- **Example**:
+  **Tables**:
+  - `NINJA`
+    | Ninja_ID | Name          | CITY     |
+    |----------|---------------|----------|
+    | 1        | Ojasv Ninja   | Jaipur   |
+    | 2        | Tejas Ninja   | Trichy   |
+    | 3        | Rejas Ninja   | Manipal  |
+
+  - `ORDERS`
+    | Order_ID | Product_name | Ninja_ID |
+    |----------|--------------|----------|
+    | 1        | SQL          | 1        |
+    | 2        | WEBDEV       | 2        |
+    | 3        | CP           | 3        |
+
+  **Query**:
+  ```sql
+  SELECT Ninja_ID, Name, CITY, Product_name
+  FROM NINJA
+  INNER JOIN ORDERS
+  ON NINJA.Ninja_ID = ORDERS.Ninja_ID;
+  ```
+  **Output**:
+  | Ninja_ID | Name          | CITY     | Product_name |
+  |----------|---------------|----------|--------------|
+  | 1        | Ojasv Ninja   | Jaipur   | SQL          |
+  | 2        | Tejas Ninja   | Trichy   | WEBDEV       |
+  | 3        | Rejas Ninja   | Manipal  | CP           |
+
+---
+
+### 2. **OUTER JOIN**
+#### a. **LEFT JOIN**
+- **Definition**: Returns all rows from the left table and matching rows from the right table. Non-matching rows in the right table are filled with `NULL`.
+- **Syntax**:
+  ```sql
+  SELECT *
+  FROM TableA
+  LEFT JOIN TableB
+  ON TableA.column = TableB.column;
+  ```
+- **Example**:
+  **Tables**: Same as above.
+  **Query**:
+  ```sql
+  SELECT Ninja_ID, Name, CITY, Product_name
+  FROM NINJA
+  LEFT JOIN ORDERS
+  ON NINJA.Ninja_ID = ORDERS.Ninja_ID;
+  ```
+  **Output**:
+  | Ninja_ID | Name          | CITY     | Product_name |
+  |----------|---------------|----------|--------------|
+  | 1        | Ojasv Ninja   | Jaipur   | SQL          |
+  | 2        | Tejas Ninja   | Trichy   | WEBDEV       |
+  | 3        | Rejas Ninja   | Manipal  | CP           |
+  | 5        | Kejas Ninja   | Lucknow  | NULL         |
+
+#### b. **RIGHT JOIN**
+- **Definition**: Returns all rows from the right table and matching rows from the left table. Non-matching rows in the left table are filled with `NULL`.
+- **Syntax**:
+  ```sql
+  SELECT *
+  FROM TableA
+  RIGHT JOIN TableB
+  ON TableA.column = TableB.column;
+  ```
+- **Example**: Similar to LEFT JOIN but swaps the priority of tables.
+
+#### c. **FULL OUTER JOIN**
+- **Definition**: Combines the results of both LEFT JOIN and RIGHT JOIN.
+- **Syntax**:
+  ```sql
+  SELECT *
+  FROM TableA
+  FULL OUTER JOIN TableB
+  ON TableA.column = TableB.column;
+  ```
+- **Example**:
+  Combines all rows, filling `NULL` where no match exists.
+
+---
+
+### 3. **CROSS JOIN**
+- **Definition**: Returns the Cartesian product of both tables.
+- **Syntax**:
+  ```sql
+  SELECT *
+  FROM TableA
+  CROSS JOIN TableB;
+  ```
+- **Example**:
+  For two tables with 3 rows each, the result will have \(3 \times 3 = 9\) rows.
+
+---
+
+### 4. **SELF JOIN**
+- **Definition**: Joins a table with itself.
+- **Syntax**:
+  ```sql
+  SELECT A.column1, B.column2
+  FROM TableA A, TableA B
+  WHERE A.column = B.column;
+  ```
+- **Example**:
+  To compare rows within the same table.
+
+---
+
+## Notes:
+1. **Optional `OUTER` Keyword**: The `OUTER` keyword is optional in `LEFT OUTER JOIN`, `RIGHT OUTER JOIN`, and `FULL OUTER JOIN`.
+2. **Access All Columns**: Use `TableName.*` to retrieve all columns from a specific table.
+3. **Join Interchangeability**: LEFT JOIN and RIGHT JOIN can be interchanged by reversing the table order.
+
+---
