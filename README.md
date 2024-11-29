@@ -142,3 +142,53 @@ VALUES ('1','Riya','Khanna',21,'riya@abc.com','987655443','Delhi'),
 		('4','Harleen','Kaur',27,'harleen@abc.com','987677585','Bengaluru'),
 		('5','Priyanshu','Gupta',23,'priyanshu@abc.com','956758556','Hyderabad');
 ```
+
+## LEFTOUTER JOIN
+```java
+CREATE TABLE Buyer(
+	bid INT,
+	bname VARCHAR(30),
+	bcity VARCHAR(30),
+	budget INT,
+	sid INT 
+);
+
+CREATE TABLE Seller(
+	sid INT, 
+	sname VARCHAR(30),
+	scity VARCHAR(30),
+	profit INT
+);
+
+CREATE TABLE Product(
+	pid INT,
+	amount INT,
+	pdate DATE, 
+	bid INT,
+	sid INT
+);
+
+INSERT INTO Buyer ( bid, bname, bcity, budget, sid)
+VALUES (1, 'rahul', 'jammu', 1000,11), 
+	 (2, 'roshni', 'chandigarh', 2000,12),
+	 (3, 'ankush', 'delhi', 3000,13),
+	 (4, 'himanshu', 'jaipur', 1000,14),
+	 (5, 'manya', 'lucknow', 2000,11),
+	 (6, 'anjali', 'dehradun', NULL,15);
+
+INSERT INTO Seller ( sid, sname, scity, profit)
+VALUES (11, 'aditi', 'delhi', 200), 
+	 (12, 'anchit', 'mumbai', 300),
+	 (13, 'rohit', 'chennai', 100),
+	 (14, 'virat', 'kolkata', 400),
+	 (15, 'taimur', 'indore', 200);
+
+INSERT INTO Product ( pid, amount, pdate, bid, sid)
+VALUES (21, 500,'2022-01-11',1,11), 
+	 (22, 300,'2022-02-12',2,12),
+	 (23, 1000,'2022-02-17',3,13),
+	 (24, 600,'2022-03-14', 4, 14),
+	 (25, 700,'2022-06-16',5,11),
+	 (26, 800,'2022-08-18',6,15),
+	 (27, 500,'2022-11-26',2,12);
+```
